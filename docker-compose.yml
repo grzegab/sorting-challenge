@@ -1,0 +1,41 @@
+version: "3.5"
+
+networks:
+  proxy:
+    external: true
+  default:
+    driver: bridge
+
+services:
+  web:
+    build: config/php
+    container_name: php
+    volumes:
+    - ./app:/var/www/html
+    - ./config/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+    expose:
+    - 80
+    - 443
+    environment:
+      VIRTUAL_HOST: zadanie.localhost
+      PHP_DEBBUGER: xdebug
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
+    labels:
+    - "traefik.frontend.rule=Host:zadanie.localhost"
+    - "traefik.docker.network=proxy"
+    networks:
+    - proxy
+    - default
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: usr
+      POSTGRES_DB: sample
+    expose:
+    - 5432
+    networks:
+    - default
+    labels:
+    - "traefik.enabled=false"
