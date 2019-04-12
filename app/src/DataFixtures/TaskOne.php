@@ -17,16 +17,16 @@ class TaskOne extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        for( $i = 0; $i <= 10; $i++) {
+        for( $i = 0; $i <= 10000; $i++) {
             $policy = new Policy();
             $policy->setNumber($i);
-            $policy->setPremium($i * rand(1, 10));
             $policy->setId($i);
             $manager->persist($policy);
 
             $installment = new Installment();
             $installment->setAdditionalInfo('I am an '. $i);
-            $installment->setPolicyId($i);
+            $installment->setPremium($i * rand(1, 10));
+            $installment->setPolicyId($policy->getId() + rand(0, 10));
             $manager->persist($installment);
         }
 

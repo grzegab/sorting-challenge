@@ -9,7 +9,7 @@ networks:
 services:
   web:
     build: config/php
-    container_name: php
+    container_name: php_zad
     volumes:
     - ./app:/var/www/html
     - ./config/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
@@ -27,12 +27,15 @@ services:
     - proxy
     - default
 
-  db:
+  db_pg:
     image: postgres
+    container_name: db_pg
     environment:
       POSTGRES_PASSWORD: pass
       POSTGRES_USER: usr
       POSTGRES_DB: sample
+    ports:
+      - 5432:5432
     expose:
     - 5432
     networks:

@@ -24,11 +24,6 @@ class Policy
     private $number;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $premium;
-
-    /**
      * @return mixed
      */
     public function getNumber()
@@ -45,26 +40,18 @@ class Policy
     }
 
     /**
-     * @return mixed
-     */
-    public function getPremium()
-    {
-        return $this->premium;
-    }
-
-    /**
-     * @param mixed $premium
-     */
-    public function setPremium($premium)
-    {
-        $this->premium = $premium;
-    }
-
-    /**
      * @param mixed $id
      */
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

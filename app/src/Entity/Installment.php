@@ -19,9 +19,9 @@ class Installment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $additionalInfo;
+    private $premium;
 
     /**
      * @ORM\Column(type="integer")
@@ -66,5 +66,21 @@ class Installment
     public function setPolicyId($policy_id): void
     {
         $this->policy_id = $policy_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPremium()
+    {
+        return $this->premium;
+    }
+
+    /**
+     * @param mixed $premium
+     */
+    public function setPremium($premium): void
+    {
+        $this->premium = $premium;
     }
 }

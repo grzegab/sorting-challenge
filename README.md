@@ -6,6 +6,7 @@ Znajdz błąd w zapytaniu: ( PostreSQL )
    FROM policy p
    RIGHT JOIN installment i ON i.policy_id = p.id
    HAVING COUNT(i.id) > 1
+  
    
    Napisz zapytania tworzące table do zapytania powyżej, które będą wydajne przy dużej licznie danych.
    
@@ -16,3 +17,19 @@ Napisz prostą aplikację konsolową w jęzuku PHP której wynikiem będzie list
 # Odpowiedzi
 
 ## Ad 1.
+
+ - Brakuje `GRUOP BY p.id`:
+     SELECT p.id, p.number, SUM(i.premium) 
+     FROM policy p 
+     RIGHT JOIN installment i 
+     ON i.policy_id = p.id 
+     GROUP BY p.id
+     HAVING COUNT(i.id) > 1
+     
+ - Zapytanie tworzące tabele do zapytania powyżej:
+     INSERT INTO installment
+     SELECT p.id, p.number, i.premium
+     FROM policy p
+        RIGHT JOIN installment i ON i.policy_id = p.id
+
+Zazwyczaj łączenia i wstawiania danych są zarządaznie przez ORM, w przypadku Symfony: Doctrine.
