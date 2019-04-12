@@ -1,4 +1,4 @@
-FROM php:7.2-apache-stretch
+FROM php:7.2-apache
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
@@ -13,17 +13,16 @@ RUN apt-get update && apt-get install -y gnupg2 apt-transport-https
 RUN apt-get update  \
     && apt-get -y upgrade \
     && apt-get install -y zlib1g-dev libicu-dev libpng-dev g++ \
-    && apt-get install -y git zip \
-    && apt-get install -y build-essential nodejs \
-    && apt-get install -y xvfb libfontconfig wkhtmltopdf \
-    && apt-get install -y yarn \
     && apt-get install -y libc-client-dev libkrb5-dev \
     && rm -r /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-install gd \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install zip
+#    && docker-php-ext-configure pdo_pgsql -with-pgsql=/usr/local/pgsql \
+#    && docker-php-ext-install pdo pdo_pgsql
+
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-configure pdo_pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql
 
 WORKDIR /var/www/html
