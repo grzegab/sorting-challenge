@@ -1,21 +1,28 @@
 <?php
 
-
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\Service\FakeData;
 
-class TaskTwoController
+class TaskTwoController extends AbstractController
 {
     public function index(Request $request, FakeData $fakeData)
     {
-        dump($fakeData->generateData());
-        die;
-        return new Response(
-            '<html><body>Table.</body></html>'
-        );
+
+        $records = $fakeData->generateData();
+
+
+        $firstName = array_column($records, 'firstName');
+        $lastName = array_column($records, 'lastName');
+        $address = array_column($records, 'address');
+
+        array_multisort($firstName, SORT_ASC, $lastName, SORT_ASC, $address, SORT_ASC, $records);
+
+        //@TODO: sorting by columns, table look, tests, comments, description how to use
+
+        return $this->render('table.html.twig', ['records' => $records]);
     }
 
 
