@@ -2,13 +2,13 @@
 
 namespace App\Tests;
 
-use App\Command\ListCommand;
+use App\Command\TaskTwoCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 
-class ListCommandTest extends KernelTestCase
+class TaskTwoCommandTest extends KernelTestCase
 {
     private function prepareExecution($name)
     {

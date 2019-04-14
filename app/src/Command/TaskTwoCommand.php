@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-
 use App\Service\FakeData;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -10,9 +9,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListCommand extends Command
+/**
+ * Class TaskTwoCommand
+ * @package App\Command
+ */
+class TaskTwoCommand extends Command
 {
 
+    /**
+     * Configuration for command.
+     */
     protected function configure()
     {
         $this->setName('random-user')
@@ -25,15 +31,21 @@ class ListCommand extends Command
             );
     }
 
+    /**
+     * Command execution.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
+        /* @var \App\Service\FakeData $nameList */
         $nameList = (new FakeData)->generateData();
 
-        //optional argument
-        $table = $input->getOption('table');
-
-        if($table) {
+        // Provide optional argument for printing table.
+        if ($input->getOption('table')) {
             $table = new Table($output);
             $table->setHeaders(['First Name', 'Last Name', 'Address']);
 

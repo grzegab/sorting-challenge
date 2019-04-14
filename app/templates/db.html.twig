@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+    code {
+        background-color: #cccccc;
+    }
+</style>
+{% endblock %}
+
+{%  block body %}
+    <p>W zapytaniu SQL:</p>
+
+    <p><code>'SELECT p.id, p.number, SUM(i.premium)
+    FROM policy p
+    RIGHT JOIN installment i
+    ON i.policy_id = p.id
+            HAVING COUNT(i.id) > 1';</code></p>
+
+    <p>Zabrakło <code>GROUP BY p.id</code></p>
+
+    <p>Zapytanie powinno wyglądać:</p>
+
+    <p><code>'SELECT p.id, p.number, SUM(i.premium)
+    FROM policy p
+    RIGHT JOIN installment i
+    ON i.policy_id = p.id
+    GROUP BY p.id
+            HAVING COUNT(i.id) > 1';</code></p>
+
+    <p>Zapytanie tworzące tabele do zapytania powyżej:</p>
+
+    <p><code>INSERT INTO installment
+    SELECT p.id, p.number, i.premium
+    FROM policy p
+            RIGHT JOIN installment i ON i.policy_id = p.id</code></p>
+
+
+{% endblock %}

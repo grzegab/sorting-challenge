@@ -3,52 +3,39 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\ResultSetMapping;
-use PhpParser\Error;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use PHPUnit\Runner\Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class TaskOneController
+ * Class TaskOneController.
  * @package App\Controller
  */
-class TaskOneController
+class TaskOneController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
+    /**
+     * TaskOneController constructor.
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
     /**
+     * Example of good query usage.
+     *
      * @return Response
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function index()
     {
-
-
         $conn = $this->entityManager->getConnection();
-
-
-/*
- * Example that need to be fixed.
- */
-//        try {
-//            $basicSql = 'SELECT p.id, p.number, SUM(i.premium)
-//                FROM policy p
-//                RIGHT JOIN installment i
-//                ON i.policy_id = p.id
-//                HAVING COUNT(i.id) > 1';
-//            $stmt = $conn->prepare($basicSql);
-//            $stmt->execute();
-//            dump($stmt->fetchAll());die;
-//        } catch (Error $e) {
-//            dump($e);
-//        }
 
         try {
             $fixedSql = 'SELECT p.id, p.number, SUM(i.premium) 
@@ -59,14 +46,11 @@ class TaskOneController
                 HAVING COUNT(i.id) > 1';
             $stmt = $conn->prepare($fixedSql);
             $stmt->execute();
-            dump($stmt->fetchAll());die;
-        } catch (Error $e) {
+            $stmt->fetchAll();
+        } catch (Exception $e) {
             dump($e);
         }
 
-
-        return new Response(
-            '<html><body>Basic query provided.</body></html>'
-        );
+        return $this->render('db.html.twig');
     }
 }

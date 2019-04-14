@@ -6,6 +6,6 @@ zadanie-1:
   path: /zadanie-1
   controller: App\Controller\TaskOneController::index
 
-zadanie-2:
-  path: /zadanie-2
-  controller: App\Controller\TaskTwoController::index
+zadanie-3:
+  path: /zadanie-3
+  controller: App\Controller\TaskThreeController::index

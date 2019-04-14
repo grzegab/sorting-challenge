@@ -24,11 +24,12 @@
 {% endblock %}
 
 {% block body %}
+    <p>Tabela, którą można sortować.</p>
     <table>
         <thead>
-            <th><a href="{{ path('zadanie-2', {'sortBy':'firstName'}) }}">First Name</a></th>
-            <th><a href="{{ path('zadanie-2', {'sortBy':'lastName'}) }}">Last Name</a></th>
-            <th><a href="{{ path('zadanie-2', {'sortBy':'address'}) }}">Address</a></th>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'firstName'}) }}">First Name</a></th>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'lastName'}) }}">Last Name</a></th>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'address'}) }}">Address</a></th>
         </thead>
         <tbody>
             {% for record in records %}
