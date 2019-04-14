@@ -15,7 +15,7 @@ class ListCommand extends Command
 
     protected function configure()
     {
-        $this->setName('app:random-user')
+        $this->setName('random-user')
             ->setDescription('Generate list of random users')
             ->addOption(
                 'table',

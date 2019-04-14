@@ -17,7 +17,7 @@ class TaskTwoController extends AbstractController
             array_multisort(array_column($records, $request->query->get('sortBy')), SORT_ASC, $records);
         }
 
-        //@TODO: tests, comments, description how to use
+        //@TODO: comments, description how to use
 
         return $this->render('table.html.twig', [
             'records' => $records
