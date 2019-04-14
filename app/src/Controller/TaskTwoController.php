@@ -13,16 +13,15 @@ class TaskTwoController extends AbstractController
 
         $records = $fakeData->generateData();
 
+        if($request->query->has('sortBy') && in_array($request->query->get('sortBy'), ['firstName', 'lastName', 'address'])) {
+            array_multisort(array_column($records, $request->query->get('sortBy')), SORT_ASC, $records);
+        }
 
-        $firstName = array_column($records, 'firstName');
-        $lastName = array_column($records, 'lastName');
-        $address = array_column($records, 'address');
+        //@TODO: tests, comments, description how to use
 
-        array_multisort($firstName, SORT_ASC, $lastName, SORT_ASC, $address, SORT_ASC, $records);
-
-        //@TODO: sorting by columns, table look, tests, comments, description how to use
-
-        return $this->render('table.html.twig', ['records' => $records]);
+        return $this->render('table.html.twig', [
+            'records' => $records
+        ]);
     }
 
 
