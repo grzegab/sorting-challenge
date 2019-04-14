@@ -33,3 +33,7 @@ Napisz prostą aplikację konsolową w jęzuku PHP której wynikiem będzie list
         RIGHT JOIN installment i ON i.policy_id = p.id
 
 Zazwyczaj łączenia i wstawiania danych są zarządaznie przez ORM, w przypadku Symfony: Doctrine.
+
+## Ad. 2
+    - Dodanie pakirtu Faker
+    - 

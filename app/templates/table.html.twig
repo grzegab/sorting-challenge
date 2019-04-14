@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+    body {
+        background-color: #EEEEEE;
+        padding: 20px;
+    }
+    table {
+        background-color: #FFFFFF;
+        border: 2px #000000 solid;
+    }
+    th {
+        border: 1px #000000 solid;
+        padding: 10px;
+        font-weight: bold;
+    }
+    td {
+        border: 2px #000000 solid;
+        padding: 5px 10px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <p>Tabela, którą można sortować.</p>
+    <table>
+        <thead>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'firstName'}) }}">First Name</a></th>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'lastName'}) }}">Last Name</a></th>
+            <th><a href="{{ path('zadanie-3', {'sortBy':'address'}) }}">Address</a></th>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.firstName }}</td>
+                    <td>{{ record.lastName }}</td>
+                    <td>{{ record.address }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
